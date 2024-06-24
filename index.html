@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="description"
+      content="Weather app in which you can search with a city and get the weather"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/bootstrap-reboot.min.css" />
+    <link rel="stylesheet" href="./css/main.css" />
+    <link rel="stylesheet" href="./css/rwd.css" />
+    <script defer src="./js/main.js"></script>
+    <script defer src="./js/soundPlayer.js"></script>
+    <title>حالة الطقس</title>
+  </head>
+  <body>
+    <main>
+      <div class="container">
+        <div class="top-content">
+          <div class="dashbored"></div>
+          <div class="sidebar">
+            <div class="search">
+              <div class="inbut">
+                <label class="searchImg" for="search">
+                  <img src="./assets/imgs/Search.png" alt="" />
+                </label>
+                <input
+                  type="text"
+                  id="search"
+                  name="search"
+                  placeholder=" بحث عن مكان..."
+                />
+              </div>
+              <div class="currentLocation">
+                <img src="./assets/imgs/Location.png" alt="" />
+              </div>
+            </div>
+            <span class="cityName">القاهرة</span>
+            <div class="weatherIcon">
+              <img src="./assets/imgs/Clouds.png" alt="weather icon" />
+            </div>
+            <div class="currentDegree">
+              <span class="degNumber">24</span>
+              <span>C°</span>
+            </div>
+            <div class="todayDate">
+              <span class="dayName">السبت</span>
+              <span class="timeNow">1ظ</span>
+            </div>
+            <div class="minmaxDeg">
+              <div class="deg">
+                <p>
+                  <span class="minDeg">21</span>
+                  C°
+                </p>
+                <span> الصغرى </span>
+              </div>
+              <div class="deg">
+                <p>
+                  <span class="maxDeg">29</span>
+                  C°
+                </p>
+                <span> العظمى </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="soundPlayer">
+          <div class="nowPlaying">
+            <span class="surahTitle">سورة الكهف</span>
+            <span class="readerName">محمود خليل الحصري</span>
+          </div>
+          <div class="ctrlBtns">
+            <button class="prev">
+              <img src="./assets/imgs/Forward Button.svg" alt="" />
+            </button>
+            <button class="playPause">
+              <img src="./assets/imgs/Pause.svg" alt="" />
+            </button>
+            <button class="next">
+              <img src="./assets/imgs/Forward Button-1.svg" alt="" />
+            </button>
+          </div>
+          <div class="timeTracker">
+            <span class="totalTime">00:00</span>
+            /
+            <span class="currentTime">00:00</span>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

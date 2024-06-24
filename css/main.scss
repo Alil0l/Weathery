@@ -1,0 +1,247 @@
+$main-color: #007dff;
+$sec-color: #f5f6f8;
+$main-black: #0c0c0c;
+
+@font-face {
+  font-family: "Cairo Light";
+  src: url(../assets/fonts/Cairo-Light.ttf);
+}
+@font-face {
+  font-family: "Cairo Medium";
+  src: url(../assets/fonts/Cairo-Medium.ttf);
+}
+@font-face {
+  font-family: "Cairo Black";
+  src: url(../assets/fonts/Cairo-Black.ttf);
+}
+@font-face {
+  font-family: "Advent Light";
+  src: url(../assets/fonts/AdventPro-Light.ttf);
+}
+@font-face {
+  font-family: "Advent SemiBold";
+  src: url(../assets/fonts/AdventPro-SemiBold.ttf);
+}
+
+body {
+  height: 100dvh;
+}
+main {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(hsla(0, 0%, 0%, 0.2), hsla(0, 0%, 0%, 0.2)),
+    url("../assets/imgs/background.jpg");
+  background-size: cover;
+  background-position: center;
+}
+.container {
+  height: 620px;
+  width: 1000px;
+  max-height: 620px;
+  max-width: 1000px;
+  background-color: $sec-color;
+  border-radius: 24px;
+  border: 1px solid #0c0c0c;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.top-content {
+  display: flex;
+  height: calc(100% - 110px);
+}
+.sidebar {
+  width: 25%;
+  height: 100%;
+  background-color: white;
+  outline: 1px solid black;
+  border-top-right-radius: 24px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  color: $main-black;
+  .search {
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    width: 100%;
+    .inbut {
+      direction: rtl;
+      display: flex;
+      align-items: center;
+      width: 80%;
+      .searchImg {
+        img {
+          display: block;
+          transform: rotateY(180deg);
+          width: 16px;
+          height: 16px;
+        }
+      }
+      input {
+        width: 90%;
+        display: block;
+        background-color: transparent;
+        border: 0;
+      }
+    }
+    .currentLocation {
+      img {
+        display: block;
+        width: 24px;
+        height: 24px;
+      }
+    }
+  }
+  .cityName {
+    font-family: "Cairo Black";
+    font-size: 26px;
+  }
+  .weatherIcon {
+    width: 100px;
+    img {
+      display: block;
+      width: 100%;
+    }
+  }
+  .currentDegree {
+    display: flex;
+
+    span {
+      font-family: "Advent SemiBold";
+      font-size: 20px;
+    }
+    span.degNumber {
+      font-family: "Advent Light";
+      font-size: 96px;
+      line-height: 1;
+    }
+  }
+  .todayDate {
+    font-size: 16px;
+    .dayName {
+      font-family: "Cairo Medium";
+    }
+    .timeNow {
+      font-family: "Cairo Light";
+    }
+  }
+  .minmaxDeg {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    width: 100%;
+    .deg {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-family: "Cairo Light";
+      text-align: center;
+      p {
+        margin: 0;
+        font-family: "Cairo Medium";
+      }
+      span {
+        font-size: 20px;
+      }
+      span.minDeg {
+        font-size: 18px;
+        font-family: "Cairo Black";
+      }
+      span.maxDeg {
+        font-size: 18px;
+        font-family: "Cairo Black";
+      }
+    }
+  }
+}
+.dashbored {
+  width: 75%;
+  height: 100%;
+  background-image: linear-gradient(135deg, #92bdf6, #f5f6f8);
+  outline: 1px solid black;
+  border-top-left-radius: 24px;
+}
+
+// Sound Player
+.soundPlayer {
+  align-self: flex-end;
+  width: 100%;
+  height: 110px;
+  background-color: $main-color;
+  color: $sec-color;
+  border-bottom-left-radius: 24px;
+  border-bottom-right-radius: 24px;
+  // border: 1px solid #0c0c0c;
+  outline: 1px solid #0c0c0c;
+  display: flex;
+  padding: 20px 32px;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nowPlaying {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-start;
+  height: 100%;
+  .surahTitle {
+    font-size: 24px;
+    font-family: "Cairo Black";
+  }
+  .readerName {
+    font-size: 16px;
+    font-family: "Cairo Medium";
+  }
+}
+
+.timeTracker {
+  font-size: 24px;
+  font-family: "Cairo Light";
+  .currentTime {
+  }
+  .totalTime {
+  }
+}
+
+.ctrlBtns {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  button {
+    cursor: pointer;
+    background-color: $main-black;
+    border: none;
+    padding: 0;
+    border-radius: 50%;
+    color: $sec-color;
+    img {
+      width: 100%;
+    }
+  }
+
+  .playPause {
+    width: 60px;
+    height: 60px;
+    img {
+      width: 40px;
+    }
+  }
+  .next {
+    width: 40px;
+    height: 40px;
+  }
+  .prev {
+    width: 40px;
+    height: 40px;
+  }
+}

@@ -56,6 +56,7 @@ main {
   height: 100%;
   background-color: white;
   outline: 1px solid black;
+  border-left: 1px solid black;
   border-top-right-radius: 24px;
   padding: 24px;
   display: flex;
@@ -161,6 +162,7 @@ main {
   height: 100%;
   background-image: linear-gradient(135deg, #92bdf6, #f5f6f8);
   outline: 1px solid black;
+  border-right: 1px solid black;
   border-top-left-radius: 24px;
   display: flex;
   justify-content: space-between;
@@ -174,39 +176,6 @@ main {
   height: 100%;
   border-radius: 16px;
   width: 45%;
-}
-.dashbored .col1 .forcast {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  height: 100%;
-  gap: 24px;
-  padding: 24px;
-}
-.dashbored .col1 .forcast .dayCard {
-  display: flex;
-  width: 100%;
-  font-size: 16px;
-  flex-direction: row-reverse;
-  justify-content: space-between;
-  align-items: center;
-}
-.dashbored .col1 .forcast .dayCard img {
-  width: 50px;
-}
-.dashbored .col1 .forcast .dayCard .dayNo {
-  font-family: "Cairo Black";
-  text-align: end;
-  width: 20%;
-}
-.dashbored .col1 .forcast .dayCard .dailyTemp {
-  width: 35%;
-  font-family: "Cairo Light";
-}
-.dashbored .col1 .forcast .dayCard .dailyTemp .maxDTemp {
-  font-size: 18px;
-  font-family: "Cairo Black";
 }
 .dashbored .col2 {
   width: 55%;
@@ -223,14 +192,168 @@ main {
   background-color: white;
   border: 1px solid #0c0c0c;
   border-radius: 16px;
+  padding: 16px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.dashbored .col2 .row1 .stateCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+.dashbored .col2 .row1 .stateCard .stateName {
+  font-family: "Cairo Black";
+  font-size: 22px;
+}
+.dashbored .col2 .row1 .stateCard img {
+  width: 50px;
+}
+.dashbored .col2 .row1 .stateCard .stateChange {
+  font-family: "Cairo Medium";
+  font-size: 20px;
 }
 .dashbored .col2 .row2 {
-  width: 100%;
   height: 55%;
-  background-color: white;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+}
+.dashbored .col2 .row2 .col1-2 {
+  height: 100%;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 12px;
+}
+.dashbored .col2 .row2 .col1-2 .leftStateCard {
+  width: 100%;
+  padding: 12px 16px;
   border: 1px solid #0c0c0c;
+  background-color: white;
+  border-radius: 16px;
+  display: flex;
+  justify-content: space-between;
+}
+.dashbored .col2 .row2 .col1-2 .leftStateCard img {
+  width: 50px;
+}
+.dashbored .col2 .row2 .col1-2 .rightStateCard {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #0c0c0c;
+  background-color: white;
+  border-radius: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.dashbored .col2 .row2 .col1-2 .rightStateCard .stateCardName {
+  font-family: "Cairo Black";
+  font-size: 20px;
+}
+.dashbored .col2 .row2 .col1-2 .rightStateCard .rightStateCardBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.dashbored .col2 .row2 .col1-2 .rightStateCard .rightStateCardBox img {
+  width: 50px;
+}
+.dashbored .col2 .row2 .col1-2 .rightStateCard .rightStateCardBox span {
+  font-family: "Cairo Medium";
+  font-size: 24px;
+}
+.dashbored .col2 .row2 .col1-2 .leftStateCard {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #0c0c0c;
+  background-color: white;
+  border-radius: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.dashbored .col2 .row2 .col1-2 .leftStateCard .stateCardName {
+  font-family: "Cairo Black";
+  font-size: 20px;
+}
+.dashbored .col2 .row2 .col1-2 .leftStateCard .leftStateCardBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.dashbored .col2 .row2 .col1-2 .leftStateCard .leftStateCardBox img {
+  width: 50px;
+}
+.dashbored .col2 .row2 .col1-2 .leftStateCard .leftStateCardBox span {
+  font-family: "Cairo Medium";
+  font-size: 24px;
+}
+.dashbored .col2 .row2 .col2-2 {
+  padding: 16px 12px;
+  height: 100%;
+  width: 50%;
+  border: 1px solid #0c0c0c;
+  background-color: white;
   border-radius: 16px;
 }
+.dashbored .col2 .row2 .col2-2 .stateCard {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.dashbored .col2 .row2 .col2-2 .stateCard .stateName {
+  font-family: "Cairo Black";
+  font-size: 20px;
+}
+.dashbored .col2 .row2 .col2-2 .stateCard .stateChange {
+  font-family: "Cairo Medium";
+  font-size: 24px;
+}
+
+.forcast {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  padding: 24px;
+}
+.forcast .dayCard {
+  display: flex;
+  width: 100%;
+  font-size: 16px;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  align-items: center;
+}
+.forcast .dayCard img {
+  width: 50px;
+}
+.forcast .dayCard .dayNo {
+  font-family: "Cairo Black";
+  text-align: end;
+  width: 20%;
+}
+.forcast .dayCard .dailyTemp {
+  width: 35%;
+  font-family: "Cairo Light";
+}
+.forcast .dayCard .dailyTemp .maxDTemp {
+  font-size: 18px;
+  font-family: "Cairo Black";
+}
+
 .soundPlayer {
   align-self: flex-end;
   width: 100%;
@@ -239,6 +362,7 @@ main {
   color: #f5f6f8;
   border-bottom-left-radius: 24px;
   border-bottom-right-radius: 24px;
+  border-top: 1px solid #0c0c0c;
   outline: 1px solid #0c0c0c;
   display: flex;
   padding: 20px 32px;

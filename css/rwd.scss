@@ -1,0 +1,188 @@
+$main-color: #007dff;
+$sec-color: #f5f6f8;
+$main-black: #0c0c0c;
+
+@media (min-width: 1076px) {
+  .container {
+  }
+}
+
+@media (max-width: 1075px) {
+  .container {
+    max-width: 80%;
+  }
+  .top-content {
+    height: calc(100% - 50px);
+  }
+  .sidebar {
+    width: 35%;
+    display: flex;
+  }
+  .dashbored {
+    width: 65%;
+    height: 100%;
+    gap: 12px;
+    padding: 12px;
+    .col1 {
+      height: 100%;
+      width: 55%;
+    }
+    .col2 {
+      width: 45%;
+      height: 100%;
+      gap: 12px;
+      .row1 {
+        background-color: transparent;
+        border: 0px;
+        height: 50%;
+        padding: 0;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        .stateCard {
+          padding: 12px 4px;
+          background-color: white;
+          width: 100%;
+          height: 33.3%;
+          flex-direction: row;
+          border: 1px solid $main-black;
+          border-radius: 16px;
+          .stateName {
+            font-family: "Cairo Black";
+            font-size: 14px;
+          }
+          img {
+            width: 50px;
+            order: -1;
+          }
+          .stateChange {
+            font-family: "Cairo Medium";
+            font-size: 16px;
+          }
+        }
+      }
+      .row2 {
+        height: 50%;
+        width: 100%;
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        .col1-2 {
+          height: 66.6%;
+          width: 100%;
+          flex-direction: column;
+          justify-content: space-between;
+          gap: 12px;
+          .rightStateCard {
+            width: 100%;
+            height: 50%;
+            padding: 12px 4px;
+            justify-content: space-between;
+            align-items: center;
+            .stateCardName {
+              font-family: "Cairo Black";
+              font-size: 14px;
+            }
+            .rightStateCardBox {
+              display: flex;
+              flex-direction: row-reverse;
+              justify-content: space-between;
+              align-items: center;
+              img {
+                width: 50px;
+              }
+              span {
+                font-family: "Cairo Medium";
+                font-size: 16px;
+              }
+            }
+          }
+          .leftStateCard {
+            width: 100%;
+            padding: 12px 4px;
+            height: 50%;
+            flex-direction: row-reverse;
+            justify-content: space-between;
+            align-items: center;
+            .stateCardName {
+              font-family: "Cairo Black";
+              font-size: 14px;
+            }
+            .leftStateCardBox {
+              display: flex;
+              flex-direction: row-reverse;
+              justify-content: space-between;
+              align-items: center;
+              img {
+                width: 50px;
+              }
+              span {
+                font-family: "Cairo Medium";
+                font-size: 16px;
+              }
+            }
+          }
+        }
+        .col2-2 {
+          padding: 12px 4px;
+          max-height: calc(33.3% - 8px);
+          width: 100%;
+          .stateCard {
+            height: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            img {
+              order: -1;
+              width: 50px;
+            }
+            .stateName {
+              font-family: "Cairo Black";
+              font-size: 14px;
+            }
+            .stateChange {
+              font-family: "Cairo Medium";
+              font-size: 16px;
+            }
+          }
+        }
+      }
+    }
+  }
+  .forcast {
+    padding: 24px 12px;
+    .dayCard {
+      font-size: 16px;
+      img {
+        width: 50px;
+      }
+      .dayNo {
+        font-family: "Cairo Black";
+        text-align: end;
+        width: 30%;
+      }
+      .dailyTemp {
+        width: 25%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        .maxDTemp {
+          font-size: 14px;
+          font-family: "Cairo Black";
+        }
+        .minDTemp {
+          font-size: 14px;
+          font-family: "Cairo Light";
+        }
+      }
+    }
+  }
+}
+@media (max-width: 765px) {
+  .container {
+  }
+}

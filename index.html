@@ -11,9 +11,11 @@
     <link rel="stylesheet" href="./css/main.css" />
     <link rel="stylesheet" href="./css/rwd.css" />
     <script defer src="./js/main.js"></script>
+    <script defer src="./js/weatherApi.js"></script>
     <script defer src="./js/soundPlayer.js"></script>
     <title>طقسي</title>
   </head>
+
   <body>
     <main>
       <section>
@@ -204,6 +206,9 @@
             </div>
           </div>
           <div class="soundPlayer">
+            <audio controls id="audio" style="display: none">
+              <source src="./assets/067 (1).mp3" type="audio/mpeg" />
+            </audio>
             <div class="nowPlaying">
               <span class="surahTitle">سورة الكهف</span>
               <span class="readerName">محمود خليل الحصري</span>

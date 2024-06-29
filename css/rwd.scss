@@ -185,6 +185,250 @@ $main-black: #0c0c0c;
   }
 }
 @media (max-width: 765px) {
+  section {
+    padding-block: 5%;
+  }
   .container {
+    max-width: 80%;
+    border-radius: 24px;
+    overflow: hidden;
+    height: 100%;
+  }
+  .top-content {
+    height: 100%;
+    flex-direction: column;
+    overflow-y: scroll;
+  }
+  .sidebar {
+    width: 100%;
+    order: -1;
+    border-top-left-radius: 24px;
+    display: flex;
+    .minmaxDeg {
+      .deg {
+        flex-direction: row;
+        gap: 12px;
+        p {
+          line-height: 1;
+          span {
+            line-height: 1;
+          }
+        }
+      }
+    }
+  }
+  .dashbored {
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    border-top-left-radius: 0px;
+    border: 1px solid $main-black;
+    gap: 12px;
+    padding: 12px;
+    .col1 {
+      height: 100%;
+      width: 100%;
+    }
+    .col2 {
+      width: 100%;
+      height: 100%;
+      gap: 12px;
+      .row1 {
+        background-color: transparent;
+        border: 0px;
+        height: 50%;
+        padding: 0;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        .stateCard {
+          padding-inline: 16px;
+          background-color: white;
+          width: 100%;
+          height: 33.3%;
+          flex-direction: row;
+          border: 1px solid $main-black;
+          border-radius: 16px;
+          .stateName {
+            // width: 15%;
+            text-align: end;
+            font-family: "Cairo Black";
+            font-size: 1rem;
+          }
+          img {
+            width: 50px;
+            order: -1;
+          }
+          .stateChange {
+            font-family: "Cairo Medium";
+            font-size: 1rem;
+          }
+        }
+      }
+      .row2 {
+        height: 50%;
+        width: 100%;
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        .col1-2 {
+          height: 66.6%;
+          width: 100%;
+          flex-direction: column;
+          justify-content: space-between;
+          gap: 12px;
+          .rightStateCard {
+            width: 100%;
+            padding-inline: 16px;
+            height: 50%;
+            justify-content: space-between;
+            align-items: center;
+            .stateCardName {
+              font-family: "Cairo Black";
+              font-size: 1rem;
+            }
+            .rightStateCardBox {
+              width: 55%;
+              display: flex;
+              flex-direction: row-reverse;
+              justify-content: space-between;
+              align-items: center;
+              img {
+                width: 50px;
+              }
+              span {
+                font-family: "Cairo Medium";
+                font-size: 1rem;
+              }
+            }
+          }
+          .leftStateCard {
+            width: 100%;
+            padding-inline: 16px;
+            height: 50%;
+            flex-direction: row-reverse;
+            justify-content: space-between;
+            align-items: center;
+            .stateCardName {
+              font-family: "Cairo Black";
+              font-size: 1rem;
+            }
+            .leftStateCardBox {
+              width: 55%;
+              display: flex;
+              flex-direction: row-reverse;
+              justify-content: space-between;
+              align-items: center;
+              img {
+                width: 50px;
+              }
+              span {
+                font-family: "Cairo Medium";
+                font-size: 1rem;
+              }
+            }
+          }
+        }
+        .col2-2 {
+          padding-inline: 16px;
+          max-height: calc(33.3% - 8px);
+          width: 100%;
+          .stateCard {
+            height: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            img {
+              order: -1;
+              width: 50px;
+            }
+            .stateName {
+              // width: 15%;
+              text-align: end;
+              font-family: "Cairo Black";
+              font-size: 1rem;
+            }
+            .stateChange {
+              font-family: "Cairo Medium";
+              font-size: 20px;
+            }
+          }
+        }
+      }
+    }
+  }
+  .forcast {
+    padding: 24px 12px;
+    .dayCard {
+      font-size: 1rem;
+      padding-inline: 16px;
+      &:not(:last-child) {
+        padding-bottom: 4px;
+        border-bottom: 1px solid $main-black;
+      }
+      img {
+        max-width: 50px;
+      }
+      .dayNo {
+        font-family: "Cairo Black";
+        text-align: end;
+        width: 30%;
+      }
+      .dailyTemp {
+        width: 25%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        .maxDTemp {
+          font-size: 14px;
+          font-family: "Cairo Black";
+        }
+        .minDTemp {
+          font-size: 14px;
+          font-family: "Cairo Light";
+        }
+      }
+    }
+  }
+  .soundPlayer {
+    .nowPlaying {
+      .surahTitle {
+        text-align: end;
+        font-size: 1rem;
+      }
+      .readerName {
+        text-align: end;
+        font-size: 0.725rem;
+      }
+    }
+    .ctrlBtns {
+      gap: 16px;
+      button {
+        img {
+          height: 20px;
+          width: 20px;
+          display: block;
+        }
+      }
+      .playPause {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 30px;
+        height: 30px;
+      }
+      .prev,
+      .next {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+  .timeTracker {
+    display: none;
   }
 }

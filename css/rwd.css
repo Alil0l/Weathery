@@ -351,13 +351,12 @@
   .forcast {
     padding: 24px 12px;
   }
+  .forcast .dayCard.active {
+    padding-inline: 16px;
+  }
   .forcast .dayCard {
     font-size: 1rem;
     padding-inline: 16px;
-  }
-  .forcast .dayCard:not(:last-child) {
-    padding-bottom: 4px;
-    border-bottom: 1px solid #0c0c0c;
   }
   .forcast .dayCard img {
     max-width: 50px;

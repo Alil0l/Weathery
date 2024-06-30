@@ -340,6 +340,12 @@ section {
   height: 100%;
   padding: 24px;
 }
+.forcast .dayCard.active {
+  padding-inline: 4px;
+  color: white;
+  border-radius: 16px;
+  background-color: #007dff;
+}
 .forcast .dayCard {
   display: flex;
   width: 100%;
@@ -347,6 +353,11 @@ section {
   flex-direction: row-reverse;
   justify-content: space-between;
   align-items: center;
+}
+.forcast .dayCard:not(:last-child) {
+  padding-bottom: 4px;
+  padding-top: 8px;
+  border-bottom: 1px solid #0c0c0c;
 }
 .forcast .dayCard img {
   width: 50px;

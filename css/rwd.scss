@@ -159,6 +159,7 @@ $main-black: #0c0c0c;
     padding: 24px 12px;
     .dayCard {
       font-size: 16px;
+
       img {
         width: 50px;
       }
@@ -363,13 +364,13 @@ $main-black: #0c0c0c;
   }
   .forcast {
     padding: 24px 12px;
+    .dayCard.active {
+      padding-inline: 16px;
+    }
     .dayCard {
       font-size: 1rem;
       padding-inline: 16px;
-      &:not(:last-child) {
-        padding-bottom: 4px;
-        border-bottom: 1px solid $main-black;
-      }
+
       img {
         max-width: 50px;
       }

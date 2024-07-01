@@ -8,6 +8,7 @@ const surahSource = document.getElementById("surahSource") as HTMLSourceElement;
 const prev = document.querySelector(".prev") as HTMLButtonElement;
 const next = document.querySelector(".next") as HTMLButtonElement;
 
+// Handlers
 playPause?.addEventListener("click", () => {
   if (audio.paused) {
     audio.play();
@@ -29,10 +30,11 @@ next?.addEventListener("click", async () => {
   } else if (currentSurahNumber < 9) {
     id = `00${currentSurahNumber + 1}`;
   } else if (currentSurahNumber == 114) {
-    id = `000`;
+    id = `001`;
   } else {
     id = `${currentSurahNumber + 1}`;
   }
+  console.log(id);
   let x = await getQuran(id);
   surahSource.setAttribute("src", x);
   let y = await getSurahName(currentSurahNumber);
@@ -47,29 +49,29 @@ prev?.addEventListener("click", async () => {
   let currentSurahNumber = Number(currentSurahString);
   if (currentSurahNumber < 99 && currentSurahNumber > 9) {
     id = `0${currentSurahNumber - 1}`;
+  } else if (currentSurahNumber == 1) {
+    id = `114`;
   } else if (currentSurahNumber < 9) {
     id = `00${currentSurahNumber - 1}`;
-  } else if (currentSurahNumber == 0) {
-    id = `114`;
   } else {
     id = `${currentSurahNumber - 1}`;
   }
   let x = await getQuran(id);
   surahSource.setAttribute("src", x);
-  console.log(x);
   let y = await getSurahName(Number(id) - 1);
-  console.log(y);
   surahTitle.textContent = `سورة ${y}`;
   audio.load();
 });
-
+// Seconds counter
 audio.addEventListener("timeupdate", function () {
   updateCurrentTime();
 });
+// Update total time for each surah
 audio?.addEventListener("loadedmetadata", function () {
   updateTotalTime();
 });
 
+// Handlers functions
 function updateTotalTime() {
   let minutes: string | number = Math.floor(audio.duration / 60);
   let seconds: string | number = Math.floor(audio.duration % 60);
@@ -95,7 +97,7 @@ function updateCurrentTime() {
   currentTime.textContent = `${minutes}:${formattedSeconds}`;
 }
 
-// Quran API
+// Quran API Audio Fetch
 async function getQuran(surahNo: string) {
   // Hussary
   let response = await fetch(
@@ -107,7 +109,7 @@ async function getQuran(surahNo: string) {
   let surahAudio = serverLink + `${surahNo}.mp3`;
   return surahAudio;
 }
-// Surah Name
+// Surah Name Fetch
 async function getSurahName(id: number) {
   let response = await fetch("https://mp3quran.net/api/v3/suwar?language=ar");
   let data = await response.json();

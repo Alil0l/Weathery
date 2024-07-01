@@ -44,6 +44,7 @@ var readerName = document.querySelector(".readerName");
 var surahSource = document.getElementById("surahSource");
 var prev = document.querySelector(".prev");
 var next = document.querySelector(".next");
+// Handlers
 playPause === null || playPause === void 0 ? void 0 : playPause.addEventListener("click", function () {
     var _a, _b, _c;
     if (audio.paused) {
@@ -71,11 +72,12 @@ next === null || next === void 0 ? void 0 : next.addEventListener("click", funct
                     id = "00".concat(currentSurahNumber + 1);
                 }
                 else if (currentSurahNumber == 114) {
-                    id = "000";
+                    id = "001";
                 }
                 else {
                     id = "".concat(currentSurahNumber + 1);
                 }
+                console.log(id);
                 return [4 /*yield*/, getQuran(id)];
             case 1:
                 x = _a.sent();
@@ -100,11 +102,11 @@ prev === null || prev === void 0 ? void 0 : prev.addEventListener("click", funct
                 if (currentSurahNumber < 99 && currentSurahNumber > 9) {
                     id = "0".concat(currentSurahNumber - 1);
                 }
+                else if (currentSurahNumber == 1) {
+                    id = "114";
+                }
                 else if (currentSurahNumber < 9) {
                     id = "00".concat(currentSurahNumber - 1);
-                }
-                else if (currentSurahNumber == 0) {
-                    id = "114";
                 }
                 else {
                     id = "".concat(currentSurahNumber - 1);
@@ -113,23 +115,24 @@ prev === null || prev === void 0 ? void 0 : prev.addEventListener("click", funct
             case 1:
                 x = _a.sent();
                 surahSource.setAttribute("src", x);
-                console.log(x);
                 return [4 /*yield*/, getSurahName(Number(id) - 1)];
             case 2:
                 y = _a.sent();
-                console.log(y);
                 surahTitle.textContent = "\u0633\u0648\u0631\u0629 ".concat(y);
                 audio.load();
                 return [2 /*return*/];
         }
     });
 }); });
+// Seconds counter
 audio.addEventListener("timeupdate", function () {
     updateCurrentTime();
 });
+// Update total time for each surah
 audio === null || audio === void 0 ? void 0 : audio.addEventListener("loadedmetadata", function () {
     updateTotalTime();
 });
+// Handlers functions
 function updateTotalTime() {
     var minutes = Math.floor(audio.duration / 60);
     var seconds = Math.floor(audio.duration % 60);
@@ -153,7 +156,7 @@ function updateCurrentTime() {
     var formattedSeconds = seconds < 10 ? "0".concat(seconds) : seconds;
     currentTime.textContent = "".concat(minutes, ":").concat(formattedSeconds);
 }
-// Quran API
+// Quran API Audio Fetch
 function getQuran(surahNo) {
     return __awaiter(this, void 0, void 0, function () {
         var response, data, serverLink, surahAudio;
@@ -172,7 +175,7 @@ function getQuran(surahNo) {
         });
     });
 }
-// Surah Name
+// Surah Name Fetch
 function getSurahName(id) {
     return __awaiter(this, void 0, void 0, function () {
         var response, data, surahName;

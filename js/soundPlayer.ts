@@ -4,6 +4,7 @@ const totalTime = document.querySelector(".totalTime") as HTMLSpanElement;
 const currentTime = document.querySelector(".currentTime") as HTMLSpanElement;
 const surahTitle = document.querySelector(".surahTitle") as HTMLSpanElement;
 const readerName = document.querySelector(".readerName") as HTMLSpanElement;
+const surahSource = document.getElementById("surahSource") as HTMLSourceElement;
 const prev = document.querySelector(".prev") as HTMLButtonElement;
 const next = document.querySelector(".next") as HTMLButtonElement;
 
@@ -18,12 +19,57 @@ playPause?.addEventListener("click", () => {
   }
 });
 
+next?.addEventListener("click", async () => {
+  let id: string;
+  let currentSurah = surahSource.getAttribute("src");
+  let currentSurahString = currentSurah?.slice(-7).slice(0, -4);
+  let currentSurahNumber = Number(currentSurahString);
+  if (currentSurahNumber < 99 && currentSurahNumber > 9) {
+    id = `0${currentSurahNumber + 1}`;
+  } else if (currentSurahNumber < 9) {
+    id = `00${currentSurahNumber + 1}`;
+  } else if (currentSurahNumber == 114) {
+    id = `000`;
+  } else {
+    id = `${currentSurahNumber + 1}`;
+  }
+  let x = await getQuran(id);
+  surahSource.setAttribute("src", x);
+  let y = await getSurahName(currentSurahNumber);
+  surahTitle.textContent = `سورة ${y}`;
+  audio.load();
+});
+
+prev?.addEventListener("click", async () => {
+  let id: string;
+  let currentSurah = surahSource.getAttribute("src");
+  let currentSurahString = currentSurah?.slice(-7).slice(0, -4);
+  let currentSurahNumber = Number(currentSurahString);
+  if (currentSurahNumber < 99 && currentSurahNumber > 9) {
+    id = `0${currentSurahNumber - 1}`;
+  } else if (currentSurahNumber < 9) {
+    id = `00${currentSurahNumber - 1}`;
+  } else if (currentSurahNumber == 0) {
+    id = `114`;
+  } else {
+    id = `${currentSurahNumber - 1}`;
+  }
+  let x = await getQuran(id);
+  surahSource.setAttribute("src", x);
+  console.log(x);
+  let y = await getSurahName(Number(id) - 1);
+  console.log(y);
+  surahTitle.textContent = `سورة ${y}`;
+  audio.load();
+});
+
 audio.addEventListener("timeupdate", function () {
   updateCurrentTime();
 });
 audio?.addEventListener("loadedmetadata", function () {
   updateTotalTime();
 });
+
 function updateTotalTime() {
   let minutes: string | number = Math.floor(audio.duration / 60);
   let seconds: string | number = Math.floor(audio.duration % 60);
@@ -47,4 +93,24 @@ function updateCurrentTime() {
   const seconds = Math.floor(audio.currentTime % 60);
   const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
   currentTime.textContent = `${minutes}:${formattedSeconds}`;
+}
+
+// Quran API
+async function getQuran(surahNo: string) {
+  // Hussary
+  let response = await fetch(
+    "https://www.mp3quran.net/api/v3/reciters?language=ar&rewaya=1&reciter=118"
+  );
+  let data = await response.json();
+  let serverLink = data.reciters[0].moshaf[0].server;
+  // Select surah
+  let surahAudio = serverLink + `${surahNo}.mp3`;
+  return surahAudio;
+}
+// Surah Name
+async function getSurahName(id: number) {
+  let response = await fetch("https://mp3quran.net/api/v3/suwar?language=ar");
+  let data = await response.json();
+  let surahName = data.suwar[id].name;
+  return surahName;
 }

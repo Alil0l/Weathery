@@ -157,6 +157,9 @@ $main-black: #0c0c0c;
   }
   .forcast {
     padding: 24px 12px;
+    .dayCard:first-child {
+      padding-top: 4px;
+    }
     .dayCard {
       font-size: 16px;
 

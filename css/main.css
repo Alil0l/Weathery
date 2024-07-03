@@ -109,6 +109,9 @@ section {
 .sidebar .search .inbut input:focus-visible ~ label {
   opacity: 0;
 }
+.sidebar .search .currentLocation {
+  cursor: pointer;
+}
 .sidebar .search .currentLocation img {
   display: block;
   width: 24px;
@@ -336,12 +339,13 @@ section {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   height: 100%;
   padding: 24px;
 }
 .forcast .dayCard.active {
   padding-inline: 4px;
+  width: 110%;
   color: white;
   border-radius: 16px;
   background-color: #007dff;

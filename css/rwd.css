@@ -149,6 +149,9 @@
   .forcast {
     padding: 24px 12px;
   }
+  .forcast .dayCard:first-child {
+    padding-top: 4px;
+  }
   .forcast .dayCard {
     font-size: 16px;
   }

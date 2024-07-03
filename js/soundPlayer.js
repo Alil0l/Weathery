@@ -132,11 +132,11 @@ audio.addEventListener("timeupdate", function () {
 audio === null || audio === void 0 ? void 0 : audio.addEventListener("loadedmetadata", function () {
     updateTotalTime();
 });
-// Handlers functions
+// Handlers functions 458.5481321
 function updateTotalTime() {
-    var minutes = Math.floor(audio.duration / 60);
-    var seconds = Math.floor(audio.duration % 60);
     var hours = Math.floor(audio.duration / 3600);
+    var minutes = Math.floor((audio.duration % 3600) / 60);
+    var seconds = Math.floor((audio.duration % 3600) % 60);
     if (seconds < 10) {
         seconds = "0" + seconds;
     }

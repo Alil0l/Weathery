@@ -280,7 +280,7 @@ section {
 }
 .dashbored .col2 .row2 .col1-2 .rightStateCard .rightStateCardBox span {
   font-family: "Cairo Medium";
-  font-size: 24px;
+  font-size: 22px;
 }
 .dashbored .col2 .row2 .col1-2 .leftStateCard {
   filter: drop-shadow(2px 4px 4px hsla(0, 0%, 0%, 0.2));
@@ -308,7 +308,7 @@ section {
 }
 .dashbored .col2 .row2 .col1-2 .leftStateCard .leftStateCardBox span {
   font-family: "Cairo Medium";
-  font-size: 24px;
+  font-size: 22px;
 }
 .dashbored .col2 .row2 .col2-2 {
   filter: drop-shadow(2px 4px 4px hsla(0, 0%, 0%, 0.2));

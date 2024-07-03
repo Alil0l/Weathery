@@ -46,23 +46,23 @@ var currentDay = document.querySelector(".currentDay .dayNo");
 var prevDay1 = document.querySelector(".prevDay1 .dayNo ");
 var prevDay2 = document.querySelector(".prevDay2 .dayNo ");
 var prevDay3 = document.querySelector(".prevDay3 .dayNo ");
+var prevDay4 = document.querySelector(".prevDay4 .dayNo");
 var nextDay1 = document.querySelector(".nextDay1 .dayNo ");
 var nextDay2 = document.querySelector(".nextDay2 .dayNo ");
-var nextDay3 = document.querySelector(".nextDay3 .dayNo ");
-var currentDaymaxDTemp = document.querySelector(".currentDay .dayNo .maxDTemp");
-var prevDay1maxDTemp = document.querySelector(".prevDay1 .dayNo .maxDTemp");
-var prevDay2maxDTemp = document.querySelector(".prevDay2 .dayNo .maxDTemp");
-var prevDay3maxDTemp = document.querySelector(".prevDay3 .dayNo .maxDTemp");
-var nextDay1maxDTemp = document.querySelector(".nextDay1 .dayNo .maxDTemp");
-var nextDay2maxDTemp = document.querySelector(".nextDay2 .dayNo .maxDTemp");
-var nextDay3maxDTemp = document.querySelector(".nextDay3 .dayNo .maxDTemp");
-var currentDayminDTemp = document.querySelector(".currentDay .dayNo .minDTemp");
-var prevDay1minDTemp = document.querySelector(".prevDay1 .dayNo .minDTemp");
-var prevDay2minDTemp = document.querySelector(".prevDay2 .dayNo .minDTemp");
-var prevDay3minDTemp = document.querySelector(".prevDay3 .dayNo .minDTemp");
-var nextDay1minDTemp = document.querySelector(".nextDay1 .dayNo .minDTemp");
-var nextDay2minDTemp = document.querySelector(".nextDay2 .dayNo .minDTemp");
-var nextDay3minDTemp = document.querySelector(".nextDay3 .dayNo .minDTemp");
+var currentDaymaxDTemp = document.querySelector(".currentDay .maxDTemp");
+var prevDay1maxDTemp = document.querySelector(".prevDay1 .maxDTemp");
+var prevDay2maxDTemp = document.querySelector(".prevDay2 .maxDTemp");
+var prevDay3maxDTemp = document.querySelector(".prevDay3 .maxDTemp");
+var prevDay4maxDTemp = document.querySelector(".prevDay4 .maxDTemp");
+var nextDay1maxDTemp = document.querySelector(".nextDay1 .maxDTemp");
+var nextDay2maxDTemp = document.querySelector(".nextDay2 .maxDTemp");
+var currentDayminDTemp = document.querySelector(".currentDay .minDTemp");
+var prevDay1minDTemp = document.querySelector(".prevDay1 .minDTemp");
+var prevDay2minDTemp = document.querySelector(".prevDay2 .minDTemp");
+var prevDay3minDTemp = document.querySelector(".prevDay3 .minDTemp");
+var prevDay4minDTemp = document.querySelector(".prevDay4 .minDTemp");
+var nextDay1minDTemp = document.querySelector(".nextDay1 .minDTemp");
+var nextDay2minDTemp = document.querySelector(".nextDay2 .minDTemp");
 var air = document.querySelector(".air");
 var hum = document.querySelector(".hum");
 var clouds = document.querySelector(".clouds");
@@ -80,37 +80,92 @@ function getDayName(dateString) {
     var formatter = new Intl.DateTimeFormat("ar-EG", options);
     return formatter.format(date);
 }
+function subtractDays(date, days) {
+    function formatDate(date) {
+        var yyyy = date.getFullYear();
+        var mm = String(date.getMonth() + 1).padStart(2, "0");
+        var dd = String(date.getDate()).padStart(2, "0");
+        return "".concat(yyyy, "-").concat(mm, "-").concat(dd);
+    }
+    var result = new Date(date);
+    result.setDate(result.getDate() - days);
+    return formatDate(result);
+}
 // Click on the location button.
 function getLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
             latitude = position.coords.latitude;
             longitude = position.coords.longitude;
-            getWeatherbyLoc();
+            getWeatherbyLoc(latitude, longitude);
         });
     }
 }
 currentLocation === null || currentLocation === void 0 ? void 0 : currentLocation.addEventListener("click", getLocation);
-function getWeatherbyLoc() {
+function getWeatherbyLoc(latitude, longitude) {
     return __awaiter(this, void 0, void 0, function () {
-        var response, data, location, current, condition, humidity, temp_c, wind_kph, name;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, fetch("http://api.weatherapi.com/v1/history.json?q=".concat(latitude, ",").concat(longitude, "&days=7"), {
+        var response, data, _a, name, localtime, _b, heatindex_c, humidity, wind_kph, forecastRes, forecastData, forecastday, forecastValues, arabicDays, daysTemp, astro, subdays, hist, historyValues;
+        return __generator(this, function (_c) {
+            switch (_c.label) {
+                case 0: return [4 /*yield*/, fetch("http://api.weatherapi.com/v1/current.json?q=".concat(latitude, ",").concat(longitude, "&days=7"), {
                         method: "GET",
                         headers: {
                             key: "58d16ebc01b6449bae5143135230110",
                         },
                     })];
                 case 1:
-                    response = _a.sent();
+                    response = _c.sent();
                     return [4 /*yield*/, response.json()];
                 case 2:
-                    data = _a.sent();
-                    console.log(data);
-                    location = data.location, current = data.current;
-                    condition = current.condition, humidity = current.humidity, temp_c = current.temp_c, wind_kph = current.wind_kph;
-                    name = location.name;
+                    data = _c.sent();
+                    _a = data.location, name = _a.name, localtime = _a.localtime, _b = data.current, heatindex_c = _b.heatindex_c, humidity = _b.humidity, wind_kph = _b.wind_kph;
+                    return [4 /*yield*/, fetch("http://api.weatherapi.com/v1/forecast.json?q=".concat(name, "&days=4"), {
+                            method: "GET",
+                            headers: {
+                                key: "58d16ebc01b6449bae5143135230110",
+                            },
+                        })];
+                case 3:
+                    forecastRes = _c.sent();
+                    return [4 /*yield*/, forecastRes.json()];
+                case 4:
+                    forecastData = _c.sent();
+                    forecastday = forecastData.forecast.forecastday;
+                    forecastValues = extractDays(forecastday);
+                    arabicDays = forecastValues.arabicDays, daysTemp = forecastValues.daysTemp, astro = forecastValues.astro;
+                    currentDay.textContent = arabicDays[0];
+                    currentDayminDTemp.textContent = "".concat(Math.ceil(Number(daysTemp[0].mintemp_c)), " C\u00B0");
+                    minDeg.textContent = "".concat(Math.ceil(Number(daysTemp[0].mintemp_c)), " C\u00B0");
+                    currentDaymaxDTemp.textContent = "".concat(Math.ceil(Number(daysTemp[0].maxtemp_c)), " C\u00B0");
+                    maxDeg.textContent = "".concat(Math.ceil(Number(daysTemp[0].maxtemp_c)), " C\u00B0");
+                    nextDay1.textContent = arabicDays[1];
+                    nextDay1maxDTemp.textContent = "".concat(Math.ceil(Number(daysTemp[1].maxtemp_c)), " C\u00B0");
+                    nextDay1minDTemp.textContent = "".concat(Math.ceil(Number(daysTemp[1].mintemp_c)), " C\u00B0");
+                    nextDay2.textContent = arabicDays[2];
+                    nextDay2maxDTemp.textContent = "".concat(Math.ceil(Number(daysTemp[2].maxtemp_c)), " C\u00B0");
+                    nextDay2minDTemp.textContent = "".concat(Math.ceil(Number(daysTemp[2].mintemp_c)), " C\u00B0");
+                    temperature.textContent = "".concat(Math.round((Number(daysTemp[0].mintemp_c) + Number(daysTemp[0].maxtemp_c)) / 2), " C\u00B0");
+                    sunrise.textContent = astro[0].sunrise;
+                    sunset.textContent = astro[0].sunset;
+                    displayData(heatindex_c, humidity, wind_kph, name, localtime);
+                    subdays = subtractDays(forecastday[0].date, 4);
+                    return [4 /*yield*/, getHistory(name, subdays, forecastday[0].date)];
+                case 5:
+                    hist = _c.sent();
+                    historyValues = extractDays(hist.forecast.forecastday);
+                    // display the rest of the days
+                    prevDay4.textContent = historyValues.arabicDays[0];
+                    prevDay4maxDTemp.textContent = "".concat(Math.ceil(Number(historyValues.daysTemp[0].maxtemp_c)), " C\u00B0");
+                    prevDay4minDTemp.textContent = "".concat(Math.ceil(Number(historyValues.daysTemp[0].mintemp_c)), " C\u00B0");
+                    prevDay3.textContent = historyValues.arabicDays[1];
+                    prevDay3maxDTemp.textContent = "".concat(Math.ceil(Number(historyValues.daysTemp[1].maxtemp_c)), " C\u00B0");
+                    prevDay3minDTemp.textContent = "".concat(Math.ceil(Number(historyValues.daysTemp[1].mintemp_c)), " C\u00B0");
+                    prevDay2.textContent = historyValues.arabicDays[2];
+                    prevDay2maxDTemp.textContent = "".concat(Math.ceil(Number(historyValues.daysTemp[2].maxtemp_c)), " C\u00B0");
+                    prevDay2minDTemp.textContent = "".concat(Math.ceil(Number(historyValues.daysTemp[2].mintemp_c)), " C\u00B0");
+                    prevDay1.textContent = historyValues.arabicDays[3];
+                    prevDay1maxDTemp.textContent = "".concat(Math.ceil(Number(historyValues.daysTemp[3].maxtemp_c)), " C\u00B0");
+                    prevDay1minDTemp.textContent = "".concat(Math.ceil(Number(historyValues.daysTemp[3].mintemp_c)), " C\u00B0");
                     return [2 /*return*/];
             }
         });
@@ -122,9 +177,9 @@ search.addEventListener("blur", function () {
 });
 function getWeatherbyName(city) {
     return __awaiter(this, void 0, void 0, function () {
-        var response, data, forecastRes, forecastData, location, current, heatindex_c, humidity, wind_kph, name, localtime, forecast, forecastday, days, daysTemp, arabicDays;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
+        var response, data, forecastRes, forecastData, _a, name, localtime, _b, heatindex_c, humidity, wind_kph, forecastday, forecastValues, arabicDays, daysTemp, astro, subdays, hist, historyValues;
+        return __generator(this, function (_c) {
+            switch (_c.label) {
                 case 0: return [4 /*yield*/, fetch("http://api.weatherapi.com/v1/current.json?q=".concat(city, "&days=7"), {
                         method: "GET",
                         headers: {
@@ -132,62 +187,99 @@ function getWeatherbyName(city) {
                         },
                     })];
                 case 1:
-                    response = _a.sent();
+                    response = _c.sent();
                     return [4 /*yield*/, response.json()];
                 case 2:
-                    data = _a.sent();
+                    data = _c.sent();
                     return [4 /*yield*/, fetch("http://api.weatherapi.com/v1/forecast.json?q=".concat(city, "&days=4"), {
                             method: "GET",
                             headers: {
                                 key: "58d16ebc01b6449bae5143135230110",
                             },
                         })];
-                case 3: return [4 /*yield*/, _a.sent()];
-                case 4:
-                    forecastRes = _a.sent();
+                case 3:
+                    forecastRes = _c.sent();
                     return [4 /*yield*/, forecastRes.json()];
-                case 5:
-                    forecastData = _a.sent();
-                    location = data.location, current = data.current;
-                    heatindex_c = current.heatindex_c, humidity = current.humidity, wind_kph = current.wind_kph;
-                    name = location.name, localtime = location.localtime;
-                    forecast = forecastData.forecast;
-                    forecastday = forecast.forecastday;
-                    days = [];
-                    daysTemp = [];
-                    forecastday.forEach(function (day) {
-                        days.push(day.date);
-                        daysTemp.push(day.day);
-                        // const dateStr = '2024-07-03';
-                        // const dayName = getDayName(dateStr);
-                    });
-                    arabicDays = days.reduce(function (acc, day) {
-                        var ar = getDayName(day);
-                        acc.push(ar);
-                        return acc;
-                    }, []);
-                    currentDay === null || currentDay === void 0 ? void 0 : currentDay.textContent = arabicDays[0];
-                    prevDay1 === null || prevDay1 === void 0 ? void 0 : prevDay1.textContent = arabicDays[1];
-                    prevDay2 === null || prevDay2 === void 0 ? void 0 : prevDay2.textContent = arabicDays[2];
+                case 4:
+                    forecastData = _c.sent();
+                    _a = data.location, name = _a.name, localtime = _a.localtime, _b = data.current, heatindex_c = _b.heatindex_c, humidity = _b.humidity, wind_kph = _b.wind_kph;
+                    forecastday = forecastData.forecast.forecastday;
+                    forecastValues = extractDays(forecastday);
+                    arabicDays = forecastValues.arabicDays, daysTemp = forecastValues.daysTemp, astro = forecastValues.astro;
+                    currentDay.textContent = arabicDays[0];
+                    currentDayminDTemp.textContent = "".concat(Math.ceil(Number(daysTemp[0].mintemp_c)), " C\u00B0");
+                    minDeg.textContent = "".concat(Math.ceil(Number(daysTemp[0].mintemp_c)), " C\u00B0");
+                    currentDaymaxDTemp.textContent = "".concat(Math.ceil(Number(daysTemp[0].maxtemp_c)), " C\u00B0");
+                    maxDeg.textContent = "".concat(Math.ceil(Number(daysTemp[0].maxtemp_c)), " C\u00B0");
+                    nextDay1.textContent = arabicDays[1];
+                    nextDay1maxDTemp.textContent = "".concat(Math.ceil(Number(daysTemp[1].maxtemp_c)), " C\u00B0");
+                    nextDay1minDTemp.textContent = "".concat(Math.ceil(Number(daysTemp[1].mintemp_c)), " C\u00B0");
+                    nextDay2.textContent = arabicDays[2];
+                    nextDay2maxDTemp.textContent = "".concat(Math.ceil(Number(daysTemp[2].maxtemp_c)), " C\u00B0");
+                    nextDay2minDTemp.textContent = "".concat(Math.ceil(Number(daysTemp[2].mintemp_c)), " C\u00B0");
+                    temperature.textContent = "".concat(Math.round((Number(daysTemp[0].mintemp_c) + Number(daysTemp[0].maxtemp_c)) / 2), " C\u00B0");
+                    sunrise.textContent = astro[0].sunrise;
+                    sunset.textContent = astro[0].sunset;
                     displayData(heatindex_c, humidity, wind_kph, name, localtime);
+                    subdays = subtractDays(forecastday[0].date, 4);
+                    return [4 /*yield*/, getHistory(city, subdays, forecastday[0].date)];
+                case 5:
+                    hist = _c.sent();
+                    historyValues = extractDays(hist.forecast.forecastday);
+                    // display the rest of the days
+                    prevDay4.textContent = historyValues.arabicDays[0];
+                    prevDay4maxDTemp.textContent = "".concat(Math.ceil(Number(historyValues.daysTemp[0].maxtemp_c)), " C\u00B0");
+                    prevDay4minDTemp.textContent = "".concat(Math.ceil(Number(historyValues.daysTemp[0].mintemp_c)), " C\u00B0");
+                    prevDay3.textContent = historyValues.arabicDays[1];
+                    prevDay3maxDTemp.textContent = "".concat(Math.ceil(Number(historyValues.daysTemp[1].maxtemp_c)), " C\u00B0");
+                    prevDay3minDTemp.textContent = "".concat(Math.ceil(Number(historyValues.daysTemp[1].mintemp_c)), " C\u00B0");
+                    prevDay2.textContent = historyValues.arabicDays[2];
+                    prevDay2maxDTemp.textContent = "".concat(Math.ceil(Number(historyValues.daysTemp[2].maxtemp_c)), " C\u00B0");
+                    prevDay2minDTemp.textContent = "".concat(Math.ceil(Number(historyValues.daysTemp[2].mintemp_c)), " C\u00B0");
+                    prevDay1.textContent = historyValues.arabicDays[3];
+                    prevDay1maxDTemp.textContent = "".concat(Math.ceil(Number(historyValues.daysTemp[3].maxtemp_c)), " C\u00B0");
+                    prevDay1minDTemp.textContent = "".concat(Math.ceil(Number(historyValues.daysTemp[3].mintemp_c)), " C\u00B0");
                     return [2 /*return*/];
             }
         });
     });
 }
+function extractDays(forecastday) {
+    var days = [];
+    var daysTemp = [];
+    var astro = [];
+    var temp = [];
+    var arabicDays = [];
+    forecastday.forEach(function (day) {
+        days.push(day.date);
+        daysTemp.push(day.day);
+        astro.push(day.astro);
+    });
+    arabicDays = days.reduce(function (acc, day) {
+        // const dateStr = '2024-07-03';
+        // const dayName = getDayName(dateStr);
+        var ar = getDayName(day);
+        acc.push(ar);
+        return acc;
+    }, []);
+    // daysTemp.reduce((acc,dayTemp)=>{
+    // acc.max = dayTemp
+    // },{})
+    return { arabicDays: arabicDays, daysTemp: daysTemp, astro: astro };
+}
 function displayData(heatindex_c, humidity, wind_kph, name, localtime) {
     degNumber.textContent = heatindex_c;
-    hum.textContent = humidity;
-    air.textContent = wind_kph;
+    hum.textContent = "".concat(humidity, " %");
+    air.textContent = "".concat(wind_kph, " kph");
     cityName.textContent = name;
     timeNow.textContent = localtime.slice(10);
 }
-function getHistory(startDate, endDate) {
+function getHistory(city, startDate, endDate) {
     return __awaiter(this, void 0, void 0, function () {
         var response, data;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, fetch("http://api.weatherapi.com/v1/history.json?q=cairo&dt=".concat(startDate, "&end_dt=").concat(endDate), {
+                case 0: return [4 /*yield*/, fetch("http://api.weatherapi.com/v1/history.json?q=".concat(city, "&dt=").concat(startDate, "&end_dt=").concat(endDate), {
                         method: "GET",
                         headers: {
                             key: "58d16ebc01b6449bae5143135230110",
@@ -198,31 +290,22 @@ function getHistory(startDate, endDate) {
                     return [4 /*yield*/, response.json()];
                 case 2:
                     data = _a.sent();
-                    console.log(data);
-                    return [2 /*return*/];
+                    // Handle the data here
+                    return [2 /*return*/, data];
             }
         });
     });
 }
-function getForecast() {
-    return __awaiter(this, void 0, void 0, function () {
-        var response, data;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, fetch("http://api.weatherapi.com/v1/forecast.json?q=cairo&days=3", {
-                        method: "GET",
-                        headers: {
-                            keys: "58d16ebc01b6449bae5143135230110",
-                        },
-                    })];
-                case 1:
-                    response = _a.sent();
-                    return [4 /*yield*/, response.json()];
-                case 2:
-                    data = _a.sent();
-                    console.log(data);
-                    return [2 /*return*/];
-            }
-        });
-    });
-}
+// async function getForecast() {
+//   let response = await fetch(
+//     "http://api.weatherapi.com/v1/forecast.json?q=cairo&days=3",
+//     {
+//       method: "GET",
+//       headers: {
+//         keys: "58d16ebc01b6449bae5143135230110",
+//       },
+//     }
+//   );
+//   let data = await response.json();
+//   console.log(data);
+// }

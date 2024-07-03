@@ -34,7 +34,6 @@ next?.addEventListener("click", async () => {
   } else {
     id = `${currentSurahNumber + 1}`;
   }
-  console.log(id);
   let x = await getQuran(id);
   surahSource.setAttribute("src", x);
   let y = await getSurahName(currentSurahNumber);

@@ -107,7 +107,7 @@ function getWeatherbyLoc(latitude, longitude) {
         var response, data, _a, name, localtime, _b, heatindex_c, humidity, wind_kph, forecastRes, forecastData, forecastday, forecastValues, arabicDays, daysTemp, astro, subdays, hist, historyValues;
         return __generator(this, function (_c) {
             switch (_c.label) {
-                case 0: return [4 /*yield*/, fetch("http://api.weatherapi.com/v1/current.json?q=".concat(latitude, ",").concat(longitude, "&days=7"), {
+                case 0: return [4 /*yield*/, fetch("https://api.weatherapi.com/v1/current.json?q=".concat(latitude, ",").concat(longitude, "&days=7"), {
                         method: "GET",
                         headers: {
                             key: "58d16ebc01b6449bae5143135230110",
@@ -119,7 +119,7 @@ function getWeatherbyLoc(latitude, longitude) {
                 case 2:
                     data = _c.sent();
                     _a = data.location, name = _a.name, localtime = _a.localtime, _b = data.current, heatindex_c = _b.heatindex_c, humidity = _b.humidity, wind_kph = _b.wind_kph;
-                    return [4 /*yield*/, fetch("http://api.weatherapi.com/v1/forecast.json?q=".concat(name, "&days=4"), {
+                    return [4 /*yield*/, fetch("https://api.weatherapi.com/v1/forecast.json?q=".concat(name, "&days=4"), {
                             method: "GET",
                             headers: {
                                 key: "58d16ebc01b6449bae5143135230110",
@@ -180,7 +180,7 @@ function getWeatherbyName(city) {
         var response, data, forecastRes, forecastData, _a, name, localtime, _b, heatindex_c, humidity, wind_kph, forecastday, forecastValues, arabicDays, daysTemp, astro, subdays, hist, historyValues;
         return __generator(this, function (_c) {
             switch (_c.label) {
-                case 0: return [4 /*yield*/, fetch("http://api.weatherapi.com/v1/current.json?q=".concat(city, "&days=7"), {
+                case 0: return [4 /*yield*/, fetch("https://api.weatherapi.com/v1/current.json?q=".concat(city, "&days=7"), {
                         method: "GET",
                         headers: {
                             key: "58d16ebc01b6449bae5143135230110",
@@ -191,7 +191,7 @@ function getWeatherbyName(city) {
                     return [4 /*yield*/, response.json()];
                 case 2:
                     data = _c.sent();
-                    return [4 /*yield*/, fetch("http://api.weatherapi.com/v1/forecast.json?q=".concat(city, "&days=4"), {
+                    return [4 /*yield*/, fetch("https://api.weatherapi.com/v1/forecast.json?q=".concat(city, "&days=4"), {
                             method: "GET",
                             headers: {
                                 key: "58d16ebc01b6449bae5143135230110",
@@ -279,7 +279,7 @@ function getHistory(city, startDate, endDate) {
         var response, data;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, fetch("http://api.weatherapi.com/v1/history.json?q=".concat(city, "&dt=").concat(startDate, "&end_dt=").concat(endDate), {
+                case 0: return [4 /*yield*/, fetch("https://api.weatherapi.com/v1/history.json?q=".concat(city, "&dt=").concat(startDate, "&end_dt=").concat(endDate), {
                         method: "GET",
                         headers: {
                             key: "58d16ebc01b6449bae5143135230110",
@@ -298,7 +298,7 @@ function getHistory(city, startDate, endDate) {
 }
 // async function getForecast() {
 //   let response = await fetch(
-//     "http://api.weatherapi.com/v1/forecast.json?q=cairo&days=3",
+//     "https://api.weatherapi.com/v1/forecast.json?q=cairo&days=3",
 //     {
 //       method: "GET",
 //       headers: {

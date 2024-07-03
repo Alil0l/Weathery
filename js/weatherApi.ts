@@ -73,7 +73,7 @@ currentLocation?.addEventListener("click", getLocation);
 
 async function getWeatherbyLoc(latitude, longitude) {
   let response = await fetch(
-    `http://api.weatherapi.com/v1/current.json?q=${latitude},${longitude}&days=7`,
+    `https://api.weatherapi.com/v1/current.json?q=${latitude},${longitude}&days=7`,
     {
       method: "GET",
       headers: {
@@ -90,7 +90,7 @@ async function getWeatherbyLoc(latitude, longitude) {
   } = data;
   // forecast data
   let forecastRes = await fetch(
-    `http://api.weatherapi.com/v1/forecast.json?q=${name}&days=4`,
+    `https://api.weatherapi.com/v1/forecast.json?q=${name}&days=4`,
     {
       method: "GET",
       headers: {
@@ -180,7 +180,7 @@ search.addEventListener("blur", () => {
 async function getWeatherbyName(city: string | number) {
   // current data
   let response = await fetch(
-    `http://api.weatherapi.com/v1/current.json?q=${city}&days=7`,
+    `https://api.weatherapi.com/v1/current.json?q=${city}&days=7`,
     {
       method: "GET",
       headers: {
@@ -191,7 +191,7 @@ async function getWeatherbyName(city: string | number) {
   let data = await response.json();
   // forecast data
   let forecastRes = await fetch(
-    `http://api.weatherapi.com/v1/forecast.json?q=${city}&days=4`,
+    `https://api.weatherapi.com/v1/forecast.json?q=${city}&days=4`,
     {
       method: "GET",
       headers: {
@@ -315,7 +315,7 @@ function displayData(heatindex_c, humidity, wind_kph, name, localtime) {
 
 async function getHistory(city, startDate, endDate) {
   let response = await fetch(
-    `http://api.weatherapi.com/v1/history.json?q=${city}&dt=${startDate}&end_dt=${endDate}`,
+    `https://api.weatherapi.com/v1/history.json?q=${city}&dt=${startDate}&end_dt=${endDate}`,
     {
       method: "GET",
       headers: {
@@ -329,7 +329,7 @@ async function getHistory(city, startDate, endDate) {
 }
 // async function getForecast() {
 //   let response = await fetch(
-//     "http://api.weatherapi.com/v1/forecast.json?q=cairo&days=3",
+//     "https://api.weatherapi.com/v1/forecast.json?q=cairo&days=3",
 //     {
 //       method: "GET",
 //       headers: {

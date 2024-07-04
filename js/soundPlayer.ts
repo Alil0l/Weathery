@@ -73,7 +73,9 @@ audio.addEventListener("timeupdate", function () {
 // Update total time for each surah
 audio?.addEventListener("loadedmetadata", function () {
   updateTotalTime();
-  audio.play();
+  setTimeout(() => {
+    audio.play();
+  }, 2000);
 });
 
 // Handlers functions 458.5481321

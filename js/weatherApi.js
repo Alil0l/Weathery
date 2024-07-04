@@ -69,8 +69,18 @@ var clouds = document.querySelector(".clouds");
 var sunset = document.querySelector(".sunset");
 var sunrise = document.querySelector(".sunrise");
 var temperature = document.querySelector(".temperature");
+var weatherIcon = document.querySelector(".weatherIcon img");
+// selecting icons
+var currentDayIcon = document.querySelector(".currentDay img");
+var prevDay1Icon = document.querySelector(".prevDay1 img ");
+var prevDay2Icon = document.querySelector(".prevDay2 img ");
+var prevDay3Icon = document.querySelector(".prevDay3 img ");
+var prevDay4Icon = document.querySelector(".prevDay4 img");
+var nextDay1Icon = document.querySelector(".nextDay1 img ");
+var nextDay2Icon = document.querySelector(".nextDay2 img ");
 var latitude;
 var longitude;
+var trig = false;
 // Today's Date
 // Days names
 // Function to get the day name for a given date
@@ -104,7 +114,7 @@ function getLocation() {
 currentLocation === null || currentLocation === void 0 ? void 0 : currentLocation.addEventListener("click", getLocation);
 function getWeatherbyLoc(latitude, longitude) {
     return __awaiter(this, void 0, void 0, function () {
-        var response, data, _a, name, localtime, _b, heatindex_c, humidity, wind_kph, forecastRes, forecastData, forecastday, forecastValues, arabicDays, daysTemp, astro, subdays, hist, historyValues;
+        var response, data, _a, name, localtime, _b, heatindex_c, humidity, wind_kph, text, forecastRes, forecastData, forecastday, forecastValues, arabicDays, daysTemp, astro, subdays, hist, historyValues;
         return __generator(this, function (_c) {
             switch (_c.label) {
                 case 0:
@@ -120,7 +130,7 @@ function getWeatherbyLoc(latitude, longitude) {
                     return [4 /*yield*/, response.json()];
                 case 2:
                     data = _c.sent();
-                    _a = data.location, name = _a.name, localtime = _a.localtime, _b = data.current, heatindex_c = _b.heatindex_c, humidity = _b.humidity, wind_kph = _b.wind_kph;
+                    _a = data.location, name = _a.name, localtime = _a.localtime, _b = data.current, heatindex_c = _b.heatindex_c, humidity = _b.humidity, wind_kph = _b.wind_kph, text = _b.condition.text;
                     return [4 /*yield*/, fetch("https://api.weatherapi.com/v1/forecast.json?q=".concat(name, "&days=4"), {
                             method: "GET",
                             headers: {
@@ -137,12 +147,16 @@ function getWeatherbyLoc(latitude, longitude) {
                     arabicDays = forecastValues.arabicDays, daysTemp = forecastValues.daysTemp, astro = forecastValues.astro;
                     currentDay.textContent = arabicDays[0];
                     currentDayminDTemp.textContent = "".concat(Math.ceil(Number(daysTemp[0].mintemp_c)), " C\u00B0");
+                    weatherIcon === null || weatherIcon === void 0 ? void 0 : weatherIcon.setAttribute("src", weatherIcons(daysTemp[0].condition.text));
+                    currentDayIcon === null || currentDayIcon === void 0 ? void 0 : currentDayIcon.setAttribute("src", weatherIcons(daysTemp[0].condition.text));
                     minDeg.textContent = "".concat(Math.ceil(Number(daysTemp[0].mintemp_c)), " C\u00B0");
                     currentDaymaxDTemp.textContent = "".concat(Math.ceil(Number(daysTemp[0].maxtemp_c)), " C\u00B0");
                     maxDeg.textContent = "".concat(Math.ceil(Number(daysTemp[0].maxtemp_c)), " C\u00B0");
+                    nextDay1Icon === null || nextDay1Icon === void 0 ? void 0 : nextDay1Icon.setAttribute("src", weatherIcons(daysTemp[1].condition.text));
                     nextDay1.textContent = arabicDays[1];
                     nextDay1maxDTemp.textContent = "".concat(Math.ceil(Number(daysTemp[1].maxtemp_c)), " C\u00B0");
                     nextDay1minDTemp.textContent = "".concat(Math.ceil(Number(daysTemp[1].mintemp_c)), " C\u00B0");
+                    nextDay2Icon === null || nextDay2Icon === void 0 ? void 0 : nextDay2Icon.setAttribute("src", weatherIcons(daysTemp[2].condition.text));
                     nextDay2.textContent = arabicDays[2];
                     nextDay2maxDTemp.textContent = "".concat(Math.ceil(Number(daysTemp[2].maxtemp_c)), " C\u00B0");
                     nextDay2minDTemp.textContent = "".concat(Math.ceil(Number(daysTemp[2].mintemp_c)), " C\u00B0");
@@ -157,15 +171,19 @@ function getWeatherbyLoc(latitude, longitude) {
                     historyValues = extractDays(hist.forecast.forecastday);
                     // display the rest of the days
                     prevDay4.textContent = historyValues.arabicDays[0];
+                    prevDay4Icon === null || prevDay4Icon === void 0 ? void 0 : prevDay4Icon.setAttribute("src", weatherIcons(historyValues.daysTemp[0].condition.text));
                     prevDay4maxDTemp.textContent = "".concat(Math.ceil(Number(historyValues.daysTemp[0].maxtemp_c)), " C\u00B0");
                     prevDay4minDTemp.textContent = "".concat(Math.ceil(Number(historyValues.daysTemp[0].mintemp_c)), " C\u00B0");
                     prevDay3.textContent = historyValues.arabicDays[1];
+                    prevDay3Icon === null || prevDay3Icon === void 0 ? void 0 : prevDay3Icon.setAttribute("src", weatherIcons(historyValues.daysTemp[1].condition.text));
                     prevDay3maxDTemp.textContent = "".concat(Math.ceil(Number(historyValues.daysTemp[1].maxtemp_c)), " C\u00B0");
                     prevDay3minDTemp.textContent = "".concat(Math.ceil(Number(historyValues.daysTemp[1].mintemp_c)), " C\u00B0");
                     prevDay2.textContent = historyValues.arabicDays[2];
+                    prevDay2Icon === null || prevDay2Icon === void 0 ? void 0 : prevDay2Icon.setAttribute("src", weatherIcons(historyValues.daysTemp[2].condition.text));
                     prevDay2maxDTemp.textContent = "".concat(Math.ceil(Number(historyValues.daysTemp[2].maxtemp_c)), " C\u00B0");
                     prevDay2minDTemp.textContent = "".concat(Math.ceil(Number(historyValues.daysTemp[2].mintemp_c)), " C\u00B0");
                     prevDay1.textContent = historyValues.arabicDays[3];
+                    prevDay1Icon === null || prevDay1Icon === void 0 ? void 0 : prevDay1Icon.setAttribute("src", weatherIcons(historyValues.daysTemp[3].condition.text));
                     prevDay1maxDTemp.textContent = "".concat(Math.ceil(Number(historyValues.daysTemp[3].maxtemp_c)), " C\u00B0");
                     prevDay1minDTemp.textContent = "".concat(Math.ceil(Number(historyValues.daysTemp[3].mintemp_c)), " C\u00B0");
                     return [2 /*return*/];
@@ -173,11 +191,26 @@ function getWeatherbyLoc(latitude, longitude) {
         });
     });
 }
-// search with inbut value
-search.addEventListener("blur", function () {
+function eventHandler() {
     var temp = search.value;
     getWeatherbyName(temp);
     search.value = "";
+    trig = false;
+}
+// search with inbut value
+search.addEventListener("keydown", function (e) {
+    if (e.key == "Enter") {
+        if (trig == false) {
+            trig = true;
+            eventHandler();
+        }
+    }
+});
+search.addEventListener("blur", function () {
+    if (trig == false) {
+        trig = true;
+        eventHandler();
+    }
 });
 function getWeatherbyName(city) {
     return __awaiter(this, void 0, void 0, function () {
@@ -212,12 +245,16 @@ function getWeatherbyName(city) {
                     arabicDays = forecastValues.arabicDays, daysTemp = forecastValues.daysTemp, astro = forecastValues.astro;
                     currentDay.textContent = arabicDays[0];
                     currentDayminDTemp.textContent = "".concat(Math.ceil(Number(daysTemp[0].mintemp_c)), " C\u00B0");
+                    weatherIcon === null || weatherIcon === void 0 ? void 0 : weatherIcon.setAttribute("src", weatherIcons(daysTemp[0].condition.text));
+                    currentDayIcon === null || currentDayIcon === void 0 ? void 0 : currentDayIcon.setAttribute("src", weatherIcons(daysTemp[0].condition.text));
                     minDeg.textContent = "".concat(Math.ceil(Number(daysTemp[0].mintemp_c)), " C\u00B0");
                     currentDaymaxDTemp.textContent = "".concat(Math.ceil(Number(daysTemp[0].maxtemp_c)), " C\u00B0");
                     maxDeg.textContent = "".concat(Math.ceil(Number(daysTemp[0].maxtemp_c)), " C\u00B0");
+                    nextDay1Icon === null || nextDay1Icon === void 0 ? void 0 : nextDay1Icon.setAttribute("src", weatherIcons(daysTemp[1].condition.text));
                     nextDay1.textContent = arabicDays[1];
                     nextDay1maxDTemp.textContent = "".concat(Math.ceil(Number(daysTemp[1].maxtemp_c)), " C\u00B0");
                     nextDay1minDTemp.textContent = "".concat(Math.ceil(Number(daysTemp[1].mintemp_c)), " C\u00B0");
+                    nextDay2Icon === null || nextDay2Icon === void 0 ? void 0 : nextDay2Icon.setAttribute("src", weatherIcons(daysTemp[2].condition.text));
                     nextDay2.textContent = arabicDays[2];
                     nextDay2maxDTemp.textContent = "".concat(Math.ceil(Number(daysTemp[2].maxtemp_c)), " C\u00B0");
                     nextDay2minDTemp.textContent = "".concat(Math.ceil(Number(daysTemp[2].mintemp_c)), " C\u00B0");
@@ -232,15 +269,19 @@ function getWeatherbyName(city) {
                     historyValues = extractDays(hist.forecast.forecastday);
                     // display the rest of the days
                     prevDay4.textContent = historyValues.arabicDays[0];
+                    prevDay4Icon === null || prevDay4Icon === void 0 ? void 0 : prevDay4Icon.setAttribute("src", weatherIcons(historyValues.daysTemp[0].condition.text));
                     prevDay4maxDTemp.textContent = "".concat(Math.ceil(Number(historyValues.daysTemp[0].maxtemp_c)), " C\u00B0");
                     prevDay4minDTemp.textContent = "".concat(Math.ceil(Number(historyValues.daysTemp[0].mintemp_c)), " C\u00B0");
                     prevDay3.textContent = historyValues.arabicDays[1];
+                    prevDay3Icon === null || prevDay3Icon === void 0 ? void 0 : prevDay3Icon.setAttribute("src", weatherIcons(historyValues.daysTemp[1].condition.text));
                     prevDay3maxDTemp.textContent = "".concat(Math.ceil(Number(historyValues.daysTemp[1].maxtemp_c)), " C\u00B0");
                     prevDay3minDTemp.textContent = "".concat(Math.ceil(Number(historyValues.daysTemp[1].mintemp_c)), " C\u00B0");
                     prevDay2.textContent = historyValues.arabicDays[2];
+                    prevDay2Icon === null || prevDay2Icon === void 0 ? void 0 : prevDay2Icon.setAttribute("src", weatherIcons(historyValues.daysTemp[2].condition.text));
                     prevDay2maxDTemp.textContent = "".concat(Math.ceil(Number(historyValues.daysTemp[2].maxtemp_c)), " C\u00B0");
                     prevDay2minDTemp.textContent = "".concat(Math.ceil(Number(historyValues.daysTemp[2].mintemp_c)), " C\u00B0");
                     prevDay1.textContent = historyValues.arabicDays[3];
+                    prevDay1Icon === null || prevDay1Icon === void 0 ? void 0 : prevDay1Icon.setAttribute("src", weatherIcons(historyValues.daysTemp[3].condition.text));
                     prevDay1maxDTemp.textContent = "".concat(Math.ceil(Number(historyValues.daysTemp[3].maxtemp_c)), " C\u00B0");
                     prevDay1minDTemp.textContent = "".concat(Math.ceil(Number(historyValues.daysTemp[3].mintemp_c)), " C\u00B0");
                     return [2 /*return*/];
@@ -252,7 +293,6 @@ function extractDays(forecastday) {
     var days = [];
     var daysTemp = [];
     var astro = [];
-    var temp = [];
     var arabicDays = [];
     forecastday.forEach(function (day) {
         days.push(day.date);
@@ -313,3 +353,32 @@ function getHistory(city, startDate, endDate) {
 //   let data = await response.json();
 //   console.log(data);
 // }
+// weather coniditions and icons
+/*
+Sunny
+Partly Cloudy
+Cloudy
+Overcast
+Patchy rain nearby / Patchy light rain
+Patchy snow nearby / Blowing snow /Blizzard / Heavy freezing drizzle
+Thundery outbreaks in nearby
+*/
+// handle weather icons
+function weatherIcons(cond) {
+    var condition = cond.toLowerCase();
+    if (condition.includes("sun")) {
+        return "./../assets/imgs/Sun.png";
+    }
+    else if (condition.includes("snow")) {
+        return "./../assets/imgs/Snow.png";
+    }
+    else if (condition.includes("rain")) {
+        return "./../assets/imgs/Rain.png";
+    }
+    else if (condition.includes("cloud")) {
+        return "./../assets/imgs/Clouds.png";
+    }
+    else {
+        return "./../assets/imgs/Sky.png";
+    }
+}

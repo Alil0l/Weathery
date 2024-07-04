@@ -35,9 +35,20 @@ const clouds = document.querySelector(".clouds");
 const sunset = document.querySelector(".sunset");
 const sunrise = document.querySelector(".sunrise");
 const temperature = document.querySelector(".temperature") as HTMLSpanElement;
+const weatherIcon = document.querySelector(".weatherIcon img");
+
+// selecting icons
+const currentDayIcon = document.querySelector(".currentDay img");
+const prevDay1Icon = document.querySelector(".prevDay1 img ");
+const prevDay2Icon = document.querySelector(".prevDay2 img ");
+const prevDay3Icon = document.querySelector(".prevDay3 img ");
+const prevDay4Icon = document.querySelector(".prevDay4 img");
+const nextDay1Icon = document.querySelector(".nextDay1 img ");
+const nextDay2Icon = document.querySelector(".nextDay2 img ");
+
 let latitude: number;
 let longitude: number;
-
+let trig = false;
 // Today's Date
 // Days names
 // Function to get the day name for a given date
@@ -87,7 +98,12 @@ async function getWeatherbyLoc(latitude, longitude) {
   // Handle the data here
   let {
     location: { name, localtime },
-    current: { heatindex_c, humidity, wind_kph },
+    current: {
+      heatindex_c,
+      humidity,
+      wind_kph,
+      condition: { text },
+    },
   } = data;
   // forecast data
   let forecastRes = await fetch(
@@ -111,12 +127,15 @@ async function getWeatherbyLoc(latitude, longitude) {
   currentDayminDTemp!.textContent = `${Math.ceil(
     Number(daysTemp[0].mintemp_c)
   )} C°`;
-
+  weatherIcon?.setAttribute("src", weatherIcons(daysTemp[0].condition.text));
+  currentDayIcon?.setAttribute("src", weatherIcons(daysTemp[0].condition.text));
   minDeg!.textContent = `${Math.ceil(Number(daysTemp[0].mintemp_c))} C°`;
   currentDaymaxDTemp!.textContent = `${Math.ceil(
     Number(daysTemp[0].maxtemp_c)
   )} C°`;
   maxDeg!.textContent = `${Math.ceil(Number(daysTemp[0].maxtemp_c))} C°`;
+
+  nextDay1Icon?.setAttribute("src", weatherIcons(daysTemp[1].condition.text));
   nextDay1!.textContent = arabicDays[1];
   nextDay1maxDTemp!.textContent = `${Math.ceil(
     Number(daysTemp[1].maxtemp_c)
@@ -124,6 +143,7 @@ async function getWeatherbyLoc(latitude, longitude) {
   nextDay1minDTemp!.textContent = `${Math.ceil(
     Number(daysTemp[1].mintemp_c)
   )} C°`;
+  nextDay2Icon?.setAttribute("src", weatherIcons(daysTemp[2].condition.text));
   nextDay2!.textContent = arabicDays[2];
   nextDay2maxDTemp!.textContent = `${Math.ceil(
     Number(daysTemp[2].maxtemp_c)
@@ -143,7 +163,12 @@ async function getWeatherbyLoc(latitude, longitude) {
   let hist = await getHistory(name, subdays, forecastday[0].date);
   let historyValues = extractDays(hist.forecast.forecastday);
   // display the rest of the days
+
   prevDay4!.textContent = historyValues.arabicDays[0];
+  prevDay4Icon?.setAttribute(
+    "src",
+    weatherIcons(historyValues.daysTemp[0].condition.text)
+  );
   prevDay4maxDTemp!.textContent = `${Math.ceil(
     Number(historyValues.daysTemp[0].maxtemp_c)
   )} C°`;
@@ -151,6 +176,10 @@ async function getWeatherbyLoc(latitude, longitude) {
     Number(historyValues.daysTemp[0].mintemp_c)
   )} C°`;
   prevDay3!.textContent = historyValues.arabicDays[1];
+  prevDay3Icon?.setAttribute(
+    "src",
+    weatherIcons(historyValues.daysTemp[1].condition.text)
+  );
   prevDay3maxDTemp!.textContent = `${Math.ceil(
     Number(historyValues.daysTemp[1].maxtemp_c)
   )} C°`;
@@ -158,6 +187,10 @@ async function getWeatherbyLoc(latitude, longitude) {
     Number(historyValues.daysTemp[1].mintemp_c)
   )} C°`;
   prevDay2!.textContent = historyValues.arabicDays[2];
+  prevDay2Icon?.setAttribute(
+    "src",
+    weatherIcons(historyValues.daysTemp[2].condition.text)
+  );
   prevDay2maxDTemp!.textContent = `${Math.ceil(
     Number(historyValues.daysTemp[2].maxtemp_c)
   )} C°`;
@@ -165,6 +198,10 @@ async function getWeatherbyLoc(latitude, longitude) {
     Number(historyValues.daysTemp[2].mintemp_c)
   )} C°`;
   prevDay1!.textContent = historyValues.arabicDays[3];
+  prevDay1Icon?.setAttribute(
+    "src",
+    weatherIcons(historyValues.daysTemp[3].condition.text)
+  );
   prevDay1maxDTemp!.textContent = `${Math.ceil(
     Number(historyValues.daysTemp[3].maxtemp_c)
   )} C°`;
@@ -173,11 +210,26 @@ async function getWeatherbyLoc(latitude, longitude) {
   )} C°`;
 }
 
-// search with inbut value
-search.addEventListener("blur", () => {
+function eventHandler() {
   let temp = search.value;
   getWeatherbyName(temp);
   search.value = ``;
+  trig = false;
+}
+// search with inbut value
+search.addEventListener("keydown", (e) => {
+  if (e.key == "Enter") {
+    if (trig == false) {
+      trig = true;
+      eventHandler();
+    }
+  }
+});
+search.addEventListener("blur", () => {
+  if (trig == false) {
+    trig = true;
+    eventHandler();
+  }
 });
 
 async function getWeatherbyName(city: string | number) {
@@ -219,12 +271,15 @@ async function getWeatherbyName(city: string | number) {
   currentDayminDTemp!.textContent = `${Math.ceil(
     Number(daysTemp[0].mintemp_c)
   )} C°`;
-
+  weatherIcon?.setAttribute("src", weatherIcons(daysTemp[0].condition.text));
+  currentDayIcon?.setAttribute("src", weatherIcons(daysTemp[0].condition.text));
   minDeg!.textContent = `${Math.ceil(Number(daysTemp[0].mintemp_c))} C°`;
   currentDaymaxDTemp!.textContent = `${Math.ceil(
     Number(daysTemp[0].maxtemp_c)
   )} C°`;
   maxDeg!.textContent = `${Math.ceil(Number(daysTemp[0].maxtemp_c))} C°`;
+
+  nextDay1Icon?.setAttribute("src", weatherIcons(daysTemp[1].condition.text));
   nextDay1!.textContent = arabicDays[1];
   nextDay1maxDTemp!.textContent = `${Math.ceil(
     Number(daysTemp[1].maxtemp_c)
@@ -232,6 +287,7 @@ async function getWeatherbyName(city: string | number) {
   nextDay1minDTemp!.textContent = `${Math.ceil(
     Number(daysTemp[1].mintemp_c)
   )} C°`;
+  nextDay2Icon?.setAttribute("src", weatherIcons(daysTemp[2].condition.text));
   nextDay2!.textContent = arabicDays[2];
   nextDay2maxDTemp!.textContent = `${Math.ceil(
     Number(daysTemp[2].maxtemp_c)
@@ -251,7 +307,12 @@ async function getWeatherbyName(city: string | number) {
   let hist = await getHistory(city, subdays, forecastday[0].date);
   let historyValues = extractDays(hist.forecast.forecastday);
   // display the rest of the days
+
   prevDay4!.textContent = historyValues.arabicDays[0];
+  prevDay4Icon?.setAttribute(
+    "src",
+    weatherIcons(historyValues.daysTemp[0].condition.text)
+  );
   prevDay4maxDTemp!.textContent = `${Math.ceil(
     Number(historyValues.daysTemp[0].maxtemp_c)
   )} C°`;
@@ -259,6 +320,10 @@ async function getWeatherbyName(city: string | number) {
     Number(historyValues.daysTemp[0].mintemp_c)
   )} C°`;
   prevDay3!.textContent = historyValues.arabicDays[1];
+  prevDay3Icon?.setAttribute(
+    "src",
+    weatherIcons(historyValues.daysTemp[1].condition.text)
+  );
   prevDay3maxDTemp!.textContent = `${Math.ceil(
     Number(historyValues.daysTemp[1].maxtemp_c)
   )} C°`;
@@ -266,6 +331,10 @@ async function getWeatherbyName(city: string | number) {
     Number(historyValues.daysTemp[1].mintemp_c)
   )} C°`;
   prevDay2!.textContent = historyValues.arabicDays[2];
+  prevDay2Icon?.setAttribute(
+    "src",
+    weatherIcons(historyValues.daysTemp[2].condition.text)
+  );
   prevDay2maxDTemp!.textContent = `${Math.ceil(
     Number(historyValues.daysTemp[2].maxtemp_c)
   )} C°`;
@@ -273,6 +342,10 @@ async function getWeatherbyName(city: string | number) {
     Number(historyValues.daysTemp[2].mintemp_c)
   )} C°`;
   prevDay1!.textContent = historyValues.arabicDays[3];
+  prevDay1Icon?.setAttribute(
+    "src",
+    weatherIcons(historyValues.daysTemp[3].condition.text)
+  );
   prevDay1maxDTemp!.textContent = `${Math.ceil(
     Number(historyValues.daysTemp[3].maxtemp_c)
   )} C°`;
@@ -285,7 +358,6 @@ function extractDays(forecastday) {
   let days = [];
   let daysTemp = [];
   let astro = [];
-  let temp = [];
   let arabicDays = [];
 
   forecastday.forEach((day) => {
@@ -343,3 +415,29 @@ async function getHistory(city, startDate, endDate) {
 //   let data = await response.json();
 //   console.log(data);
 // }
+
+// weather coniditions and icons
+/* 
+Sunny
+Partly Cloudy
+Cloudy
+Overcast
+Patchy rain nearby / Patchy light rain
+Patchy snow nearby / Blowing snow /Blizzard / Heavy freezing drizzle
+Thundery outbreaks in nearby 
+*/
+// handle weather icons
+function weatherIcons(cond: string) {
+  let condition = cond.toLowerCase();
+  if (condition.includes("sun")) {
+    return `./../assets/imgs/Sun.png`;
+  } else if (condition.includes("snow")) {
+    return `./../assets/imgs/Snow.png`;
+  } else if (condition.includes("rain")) {
+    return `./../assets/imgs/Rain.png`;
+  } else if (condition.includes("cloud")) {
+    return `./../assets/imgs/Clouds.png`;
+  } else {
+    return `./../assets/imgs/Sky.png`;
+  }
+}

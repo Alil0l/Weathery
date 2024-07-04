@@ -57,6 +57,10 @@ playPause === null || playPause === void 0 ? void 0 : playPause.addEventListener
         (_c = playPause.firstElementChild) === null || _c === void 0 ? void 0 : _c.setAttribute("src", "./assets/imgs/Play.svg");
     }
 });
+// auto switch
+audio.addEventListener("ended", function () {
+    next.click();
+});
 next === null || next === void 0 ? void 0 : next.addEventListener("click", function () { return __awaiter(_this, void 0, void 0, function () {
     var id, currentSurah, currentSurahString, currentSurahNumber, x, y;
     return __generator(this, function (_a) {
@@ -77,7 +81,6 @@ next === null || next === void 0 ? void 0 : next.addEventListener("click", funct
                 else {
                     id = "".concat(currentSurahNumber + 1);
                 }
-                console.log(id);
                 return [4 /*yield*/, getQuran(id)];
             case 1:
                 x = _a.sent();

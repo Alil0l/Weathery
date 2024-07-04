@@ -20,6 +20,11 @@ playPause?.addEventListener("click", () => {
   }
 });
 
+// auto switch
+audio.addEventListener("ended", function () {
+  next.click();
+});
+
 next?.addEventListener("click", async () => {
   let id: string;
   let currentSurah = surahSource.getAttribute("src");

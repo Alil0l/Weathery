@@ -134,6 +134,7 @@ audio.addEventListener("timeupdate", function () {
 // Update total time for each surah
 audio === null || audio === void 0 ? void 0 : audio.addEventListener("loadedmetadata", function () {
     updateTotalTime();
+    audio.play();
 });
 // Handlers functions 458.5481321
 function updateTotalTime() {

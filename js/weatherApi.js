@@ -367,18 +367,18 @@ Thundery outbreaks in nearby
 function weatherIcons(cond) {
     var condition = cond.toLowerCase();
     if (condition.includes("sun")) {
-        return "./../assets/imgs/Sun.png";
+        return "./assets/imgs/Sun.png";
     }
     else if (condition.includes("snow")) {
-        return "./../assets/imgs/Snow.png";
+        return "./assets/imgs/Snow.png";
     }
     else if (condition.includes("rain")) {
-        return "./../assets/imgs/Rain.png";
+        return "./assets/imgs/Rain.png";
     }
     else if (condition.includes("cloud")) {
-        return "./../assets/imgs/Clouds.png";
+        return "./assets/imgs/Clouds.png";
     }
     else {
-        return "./../assets/imgs/Sky.png";
+        return "./assets/imgs/Sky.png";
     }
 }

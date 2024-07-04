@@ -107,12 +107,14 @@ function getWeatherbyLoc(latitude, longitude) {
         var response, data, _a, name, localtime, _b, heatindex_c, humidity, wind_kph, forecastRes, forecastData, forecastday, forecastValues, arabicDays, daysTemp, astro, subdays, hist, historyValues;
         return __generator(this, function (_c) {
             switch (_c.label) {
-                case 0: return [4 /*yield*/, fetch("https://api.weatherapi.com/v1/current.json?q=".concat(latitude, ",").concat(longitude, "&days=7"), {
-                        method: "GET",
-                        headers: {
-                            key: "58d16ebc01b6449bae5143135230110",
-                        },
-                    })];
+                case 0:
+                    search.value = "";
+                    return [4 /*yield*/, fetch("https://api.weatherapi.com/v1/current.json?q=".concat(latitude, ",").concat(longitude, "&days=7"), {
+                            method: "GET",
+                            headers: {
+                                key: "58d16ebc01b6449bae5143135230110",
+                            },
+                        })];
                 case 1:
                     response = _c.sent();
                     return [4 /*yield*/, response.json()];
@@ -173,7 +175,9 @@ function getWeatherbyLoc(latitude, longitude) {
 }
 // search with inbut value
 search.addEventListener("blur", function () {
-    getWeatherbyName(search.value);
+    var temp = search.value;
+    getWeatherbyName(temp);
+    search.value = "";
 });
 function getWeatherbyName(city) {
     return __awaiter(this, void 0, void 0, function () {

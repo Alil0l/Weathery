@@ -72,6 +72,7 @@ function getLocation() {
 currentLocation?.addEventListener("click", getLocation);
 
 async function getWeatherbyLoc(latitude, longitude) {
+  search.value = ``;
   let response = await fetch(
     `https://api.weatherapi.com/v1/current.json?q=${latitude},${longitude}&days=7`,
     {
@@ -174,7 +175,9 @@ async function getWeatherbyLoc(latitude, longitude) {
 
 // search with inbut value
 search.addEventListener("blur", () => {
-  getWeatherbyName(search.value);
+  let temp = search.value;
+  getWeatherbyName(temp);
+  search.value = ``;
 });
 
 async function getWeatherbyName(city: string | number) {

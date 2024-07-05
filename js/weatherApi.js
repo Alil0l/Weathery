@@ -146,6 +146,7 @@ function getWeatherbyLoc(latitude, longitude) {
                     forecastValues = extractDays(forecastday);
                     arabicDays = forecastValues.arabicDays, daysTemp = forecastValues.daysTemp, astro = forecastValues.astro;
                     currentDay.textContent = arabicDays[0];
+                    dayName.textContent = arabicDays[0];
                     currentDayminDTemp.textContent = "".concat(Math.ceil(Number(daysTemp[0].mintemp_c)), " C\u00B0");
                     weatherIcon === null || weatherIcon === void 0 ? void 0 : weatherIcon.setAttribute("src", weatherIcons(daysTemp[0].condition.text));
                     currentDayIcon === null || currentDayIcon === void 0 ? void 0 : currentDayIcon.setAttribute("src", weatherIcons(daysTemp[0].condition.text));

@@ -124,6 +124,7 @@ async function getWeatherbyLoc(latitude, longitude) {
   let { arabicDays, daysTemp, astro } = forecastValues;
 
   currentDay!.textContent = arabicDays[0];
+  dayName!.textContent = arabicDays[0];
   currentDayminDTemp!.textContent = `${Math.ceil(
     Number(daysTemp[0].mintemp_c)
   )} C°`;
